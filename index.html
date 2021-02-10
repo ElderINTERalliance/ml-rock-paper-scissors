@@ -71,6 +71,33 @@
                 labelContainer.childNodes[i].innerHTML = classPrediction;
             }
         }
+
+        // run the webcam image through the image model
+        async function startGame() {
+            let probability = 0, playerGuess;
+            // get a random guess for the computer
+            let classNames = ["Rock", "Paper", "Scissors"];
+            let computerGuess = classNames[Math.floor(Math.random() * classNames.length)];
+            // predict can take in an image, video or canvas html element
+            // get the guess from the player's webcam
+            const prediction = await model.predict(webcam.canvas);
+            // find the className with the highest probability
+            for (let i = 0; i < maxPredictions; i++) {
+                if (probability < prediction[i].probability.toFixed(2)) playerGuess = prediction[i].className;
+            }
+            console.log(checkWinner(computerGuess, playerGuess));
+        }
+
+        function checkWinner(computer, player) {
+            // check for a tie
+            if (player === computer) return 'tie';
+            // check for a computer win
+            if (player === 'Paper' && computer === 'Scissors') return 'computer';
+            if (player === 'Rock' && computer === 'Paper') return 'computer';
+            if (player === 'Scissors' && computer === 'Rock') return 'computer';
+            // player wins if none of the above were true
+            return 'player';
+        }
     </script>
 </body>
 
