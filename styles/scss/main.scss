@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #141414;
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#windowWrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#containerWindow {
+    min-width: 300px;
+    width: 600px;
+    max-width: 600px;
+    min-height: 300px;
+    max-height: 600px;
+    padding: 0;
+    position: relative;
+    border-radius: 7px;
+    overflow: hidden;
+
+    #webcam-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    #computer-container {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+}
+
+@media (max-width: 600px) {
+    #containerWindow {
+        width: 300px;
+        height: 600px;
+    
+        #webcam-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    
+        #computer-container {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: auto;
+        }
+    
+    }
+}
+
+.halfContainer {
+    width: 300px;
+    height: 300px;
+    background-color: #282828;
+    display: inline-block;
+}
+
+#chromeBar {
+    width: 100%;
+    height: 25px;
+    top: 0;
+    background-color: #1e1e1e;
+    position: absolute;
+    z-index: 99;
+
+    p {
+        display: inline-block;
+        line-height: 25px;
+        top: 0;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        margin-left: 12px;
+        font-weight: 600;
+        color: #9a9a9a;
+    }
+}
+
+.circle {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 6px;
+    margin-right: 3px;
+}
+
+.circle:nth-of-type(1) {
+    background-color: #EC665A;
+}
+
+.circle:nth-of-type(2) {
+    background-color: #E0C14C;
+}
+
+.circle:nth-of-type(3) {
+    background-color: #71BF46;
+}
+
+#vs {
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+    margin: 0;
+    border-radius: 50%;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #141414;
+    color: #9a9a9a;
+}
+
+#computer-container {
+    line-height: 300px;
+    text-align: center;
+    font-size: 100px;
+}
+
