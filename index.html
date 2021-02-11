@@ -83,15 +83,21 @@
             const prediction = await model.predict(webcam.canvas);
             // find the className with the highest probability
             for (let i = 0; i < maxPredictions; i++) {
-                if (probability < prediction[i].probability.toFixed(2)) playerGuess = prediction[i].className;
+                if (probability < prediction[i].probability.toFixed(2)) {
+                    playerGuess = prediction[i].className;
+                    probability = prediction[i].probability.toFixed(2);
+                }
+                console.log(prediction[i].className, prediction[i].probability.toFixed(2))
             }
-            console.log(checkWinner(computerGuess, playerGuess));
+            return [checkWinner(computerGuess, playerGuess), computerGuess, playerGuess];
         }
 
         function checkWinner(computer, player) {
             // check for a tie
             if (player === computer) return 'tie';
             // check for a computer win
+            // NOTE: this could be condensed into a singular if statement, 
+            // but I find it easier to follow this way
             if (player === 'Paper' && computer === 'Scissors') return 'computer';
             if (player === 'Rock' && computer === 'Paper') return 'computer';
             if (player === 'Scissors' && computer === 'Rock') return 'computer';
