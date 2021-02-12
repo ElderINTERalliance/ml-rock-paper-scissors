@@ -1,6 +1,8 @@
 # ml-rock-paper-scissors
 Rock Paper Scissors with Teachable Machine ✊ ✋ ✌!
 
+[View live demo!](https://solution--ml-rock-paper-scissors.netlify.app)
+
 ## Challenges
 Try implementing Rock, Paper, Scissors, Spock!
 
