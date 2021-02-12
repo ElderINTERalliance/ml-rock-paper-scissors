@@ -17,16 +17,18 @@
 
     <div id="windowWrapper">
         <div id="containerWindow">
-            <div id="chromeBar"><div class="circle"></div><div class="circle"></div><div class="circle"></div><p>ML Rock Paper Scissors</p></div>
+            <div id="chromeBar">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <p>ML Rock Paper Scissors</p>
+            </div>
             <div id="webcam-container" class="halfContainer"></div>
-            <div id="computer-container" class="halfContainer">✊</div>
-            <h1 id="vs">vs</h1>
+            <div id="computer-container" class="halfContainer">🤖</div>
+            <h1 id="vs">▶</h1>
         </div>
     </div>
 
-    <button type="button" onclick="init()">Start</button>
-    <!-- <div id="webcam-container"></div> -->
-    <div id="label-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -36,7 +38,11 @@
         // the link to your model provided by Teachable Machine export panel
         const URL = "https://teachablemachine.withgoogle.com/models/VbfQgzD3J/";
 
-        let model, webcam, labelContainer, maxPredictions;
+        let model, webcam, labelContainer, maxPredictions, timer;
+
+        window.onload = () => {
+            init();
+        }
 
         // Load the image model and setup the webcam
         async function init() {
@@ -59,26 +65,46 @@
 
             // append elements to the DOM
             document.getElementById("webcam-container").appendChild(webcam.canvas);
-            // labelContainer = document.getElementById("label-container");
-            // for (let i = 0; i < maxPredictions; i++) { // and class labels
-            //     labelContainer.appendChild(document.createElement("div"));
-            // }
         }
 
         async function loop() {
             webcam.update(); // update the webcam frame
-            // await predict();
             window.requestAnimationFrame(loop);
         }
 
-        // run the webcam image through the image model
-        async function predict() {
-            // predict can take in an image, video or canvas html element
-            const prediction = await model.predict(webcam.canvas);
-            for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                // labelContainer.childNodes[i].innerHTML = classPrediction;
+        async function displayResults() {
+            var time = 3;
+            var displayOptions = ['🏁', '✌', '✋', '✊'];
+            if (!timer) {
+                timer = setInterval(async () => {
+                    if (time > -1) {
+                        document.querySelector("#vs").innerHTML = displayOptions[time];
+                        time--;
+                    } else {
+                        clearInterval(timer);
+                        document.querySelector("#vs").innerHTML = '▶';
+                        var res = await startGame();
+                        let compChoice = document.querySelector("#computer-container");
+
+                    }
+                }, 1000)
+            }
+        }
+
+        function toEmoji(name) {
+            switch (name) {
+                case 'Paper':
+                    return '✋';
+                    break;
+                case 'Scissors':
+                    return '✌';
+                    break;
+                case 'Rock':
+                    return '✊';
+                    break;
+                    
+                default:
+                    break;
             }
         }
 
