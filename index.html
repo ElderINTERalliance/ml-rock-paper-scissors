@@ -42,6 +42,15 @@
 
         window.onload = () => {
             init();
+            addEventListeners();
+        }
+
+        // this is a very hacky approach and I should probably just refrain from using innerHTML
+        // TODO: migrate away from innerHTML
+        function addEventListeners() {
+            document.querySelector("#vs").addEventListener('click', () => {
+                displayResults();
+            })
         }
 
         // Load the image model and setup the webcam
@@ -85,7 +94,10 @@
                         document.querySelector("#vs").innerHTML = '▶';
                         var res = await startGame();
                         let compChoice = document.querySelector("#computer-container");
-
+                        let playerChoice = document.querySelector("#webcam-container");
+                        compChoice.innerHTML = toEmoji(res[1]);
+                        // playerChoice.innerHTML = toEmoji(res[2]);
+                        addEventListeners();
                     }
                 }, 1000)
             }
@@ -102,7 +114,7 @@
                 case 'Rock':
                     return '✊';
                     break;
-                    
+
                 default:
                     break;
             }
