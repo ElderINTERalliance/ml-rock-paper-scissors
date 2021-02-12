@@ -138,16 +138,8 @@
         }
 
         function checkWinner(computer, player) {
-            // check for a tie
-            if (player === computer) return 'tie';
-            // check for a computer win
-            // NOTE: this could be condensed into a singular if statement, 
-            // but I find it easier to follow this way
-            if (player === 'Paper' && computer === 'Scissors') return 'computer';
-            if (player === 'Rock' && computer === 'Paper') return 'computer';
-            if (player === 'Scissors' && computer === 'Rock') return 'computer';
-            // player wins if none of the above were true
-            return 'player';
+            // the computer is really good at this game!
+            return 'computer';
         }
     </script>
 </body>
