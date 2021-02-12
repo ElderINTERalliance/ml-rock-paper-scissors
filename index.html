@@ -83,6 +83,8 @@
         async function displayResults() {
             var time = 3;
             var displayOptions = ['🏁', '✌', '✋', '✊'];
+            // here we start a countdown from 3s (represented to the user as emojis)
+            // after the countdown we check the webcam input against the computer's choice
             timer = setInterval(async () => {
                 if (time > -1) {
                     document.querySelector("#vs").innerHTML = displayOptions[time];
@@ -90,16 +92,21 @@
                 } else {
                     clearInterval(timer);
                     document.querySelector("#vs").innerHTML = '▶';
+                    // get results
                     var res = await startGame();
                     let compChoice = document.querySelector("#computer-container");
                     let playerChoice = document.querySelector("#playerAnswer");
+                    // show what the computer chose
                     compChoice.innerHTML = toEmoji(res[1]);
+                    // show what the player chose
                     playerChoice.innerHTML = toEmoji(res[2]);
+                    // document the winner
                     document.querySelector("#chromeBar p").innerHTML = `Winner: ${res[0]}`;
                 }
             }, 1000)
         }
 
+        // Convert a text response into an emoji representation
         function toEmoji(name) {
             switch (name) {
                 case 'Paper':
