@@ -5,7 +5,7 @@ Rock Paper Scissors with Teachable Machine ✊ ✋ ✌!
 Try implementing Rock, Paper, Scissors, Spock!
 
 This is a slightly more complicated version of the classic game.
-You will need to train a new model (teachablemachine.withgoogle.com) as well as updating your `checkWinner()` and `startGame()` functions with the additional cases.
+You will need to train a new model (teachablemachine.withgoogle.com) as well as updating all functions with the additional cases.
 
 ### The Rules
 
