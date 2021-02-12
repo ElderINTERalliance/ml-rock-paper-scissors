@@ -23,8 +23,10 @@
                 <div class="circle"></div>
                 <p>ML Rock Paper Scissors</p>
             </div>
-            <div id="webcam-container" class="halfContainer"></div>
-            <div id="computer-container" class="halfContainer">🤖</div>
+            <div id="webcam-container" class="halfContainer">
+                <p id="playerAnswer"></p>
+            </div>
+            <div id="computer-container" class="halfContainer">💻</div>
             <h1 id="vs">▶</h1>
         </div>
     </div>
@@ -42,16 +44,13 @@
 
         window.onload = () => {
             init();
-            addEventListeners();
         }
 
-        // this is a very hacky approach and I should probably just refrain from using innerHTML
-        // TODO: migrate away from innerHTML
-        function addEventListeners() {
-            document.querySelector("#vs").addEventListener('click', () => {
-                displayResults();
-            })
-        }
+        document.querySelector("#vs").addEventListener('click', () => {
+            document.querySelector("#computer-container").innerHTML = "";
+            document.querySelector("#playerAnswer").innerHTML = "";
+            displayResults();
+        })
 
         // Load the image model and setup the webcam
         async function init() {
@@ -84,23 +83,21 @@
         async function displayResults() {
             var time = 3;
             var displayOptions = ['🏁', '✌', '✋', '✊'];
-            if (!timer) {
-                timer = setInterval(async () => {
-                    if (time > -1) {
-                        document.querySelector("#vs").innerHTML = displayOptions[time];
-                        time--;
-                    } else {
-                        clearInterval(timer);
-                        document.querySelector("#vs").innerHTML = '▶';
-                        var res = await startGame();
-                        let compChoice = document.querySelector("#computer-container");
-                        let playerChoice = document.querySelector("#webcam-container");
-                        compChoice.innerHTML = toEmoji(res[1]);
-                        // playerChoice.innerHTML = toEmoji(res[2]);
-                        addEventListeners();
-                    }
-                }, 1000)
-            }
+            timer = setInterval(async () => {
+                if (time > -1) {
+                    document.querySelector("#vs").innerHTML = displayOptions[time];
+                    time--;
+                } else {
+                    clearInterval(timer);
+                    document.querySelector("#vs").innerHTML = '▶';
+                    var res = await startGame();
+                    let compChoice = document.querySelector("#computer-container");
+                    let playerChoice = document.querySelector("#playerAnswer");
+                    compChoice.innerHTML = toEmoji(res[1]);
+                    playerChoice.innerHTML = toEmoji(res[2]);
+                    document.querySelector("#chromeBar p").innerHTML = `Winner: ${res[0]}`;
+                }
+            }, 1000)
         }
 
         function toEmoji(name) {

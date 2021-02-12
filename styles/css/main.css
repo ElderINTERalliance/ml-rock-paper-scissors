@@ -126,11 +126,21 @@ body, html {
   text-align: center;
   background-color: #141414;
   color: #9a9a9a;
+  cursor: pointer;
+  z-index: 99;
 }
 
 .halfContainer {
   line-height: 300px;
   text-align: center;
   font-size: 100px;
+}
+
+.halfContainer p {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  z-index: 98;
+  width: 300px;
 }
 /*# sourceMappingURL=main.css.map */
