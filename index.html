@@ -151,8 +151,16 @@
         * @return {string} A title cased string that represents who won based on the supplied paramaters
         */
         function checkWinner(computer, player) {
-            // the computer is really good at this game!
-            return 'Computer';
+            // check for a tie
+            if (player === computer) return 'Tie';
+            // check for a computer win
+            // NOTE: this could be condensed into a singular if statement, 
+            // but I find it easier to follow this way
+            if (player === 'Paper' && computer === 'Scissors') return 'Computer';
+            if (player === 'Rock' && computer === 'Paper') return 'Computer';
+            if (player === 'Scissors' && computer === 'Rock') return 'Computer';
+            // player wins if none of the above were true
+            return 'Player';
         }
 
     </script>
