@@ -83,6 +83,8 @@
         async function displayResults() {
             var time = 3;
             var displayOptions = ['🏁', '✌', '✋', '✊'];
+            // here we start a countdown from 3s (represented to the user as emojis)
+            // after the countdown we check the webcam input against the computer's choice
             timer = setInterval(async () => {
                 if (time > -1) {
                     document.querySelector("#vs").innerHTML = displayOptions[time];
@@ -90,16 +92,21 @@
                 } else {
                     clearInterval(timer);
                     document.querySelector("#vs").innerHTML = '▶';
+                    // get results
                     var res = await startGame();
                     let compChoice = document.querySelector("#computer-container");
                     let playerChoice = document.querySelector("#playerAnswer");
+                    // show what the computer chose
                     compChoice.innerHTML = toEmoji(res[1]);
+                    // show what the player chose
                     playerChoice.innerHTML = toEmoji(res[2]);
+                    // document the winner
                     document.querySelector("#chromeBar p").innerHTML = `Winner: ${res[0]}`;
                 }
             }, 1000)
         }
 
+        // Convert a text response into an emoji representation
         function toEmoji(name) {
             switch (name) {
                 case 'Paper':
@@ -137,18 +144,17 @@
             return [checkWinner(computerGuess, playerGuess), computerGuess, playerGuess];
         }
 
+        /*
+        * This determines who won in a game of rock, paper, scissors
+        * @params {string} computer A title cased string that represents the computer's choice
+        * @params {string} player A title cased string that represents the player's choice
+        * @return {string} A title cased string that represents who won based on the supplied paramaters
+        */
         function checkWinner(computer, player) {
-            // check for a tie
-            if (player === computer) return 'tie';
-            // check for a computer win
-            // NOTE: this could be condensed into a singular if statement, 
-            // but I find it easier to follow this way
-            if (player === 'Paper' && computer === 'Scissors') return 'computer';
-            if (player === 'Rock' && computer === 'Paper') return 'computer';
-            if (player === 'Scissors' && computer === 'Rock') return 'computer';
-            // player wins if none of the above were true
-            return 'player';
+            // the computer is really good at this game!
+            return 'Computer';
         }
+
     </script>
 </body>
 
